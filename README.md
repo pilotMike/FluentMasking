@@ -41,3 +41,15 @@ Precreated classes include SSN, EIN, and Phone.
               return areaCode + " " + rest;
           }
       }
+  
+      public class SsnMask : AbstractMask
+      {
+          internal SsnMask()
+          {
+              AddCharacterFilter(Characters.Numbers);
+              MaskWhen(s => s.Length == 9); // sets the condition on which to perform masking.
+
+              SetMask((s,c) => s.Substring(s.Length - 5).PadLeft(9, c)); // sets the character mask
+              SetFormat(s => s.Insert(5, "-").Insert(2, "-")); // final formatting
+          }
+      }
